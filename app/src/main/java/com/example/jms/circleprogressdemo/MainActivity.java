@@ -25,9 +25,9 @@ public class MainActivity extends AppCompatActivity {
 
         lv = (ListView) findViewById(R.id.lv);
 
-        mList.add("Arc-circleProgress");
         mList.add("Bar-circleProgress");
         mList.add("Rise-circleProgress");
+        mList.add("Arc-circleProgress");
 
         lv.setAdapter(new BaseAdapter() {
             @Override

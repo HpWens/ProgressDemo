@@ -8,7 +8,6 @@ import android.graphics.RectF;
 import android.util.AttributeSet;
 
 import com.example.circleprogress.unit.DensityUtil;
-import com.example.circleprogress.widget.BaseCircleProgress;
 
 /**
  * Created by jms on 2016/4/15.
