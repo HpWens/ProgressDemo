@@ -9,7 +9,6 @@ import android.graphics.RectF;
 import android.util.AttributeSet;
 
 import com.example.circleprogress.unit.DensityUtil;
-import com.example.circleprogress.widget.BaseCircleProgress;
 
 /**
  * Created by jms on 2016/4/16.
@@ -112,8 +111,11 @@ public class CircleProgressArc extends BaseCircleProgress {
                     postInvalidate();
                 }
             }, delayTime);
+        }else {
+            if (mAddListener != null) {
+                mAddListener.OnProgressEndListener();
+            }
         }
-
     }
 
     private void drawText(Canvas canvas) {
@@ -219,4 +221,6 @@ public class CircleProgressArc extends BaseCircleProgress {
     public void setArcStyle(Paint.Style style) {
         arcPaint.setStyle(style);
     }
+
+
 }

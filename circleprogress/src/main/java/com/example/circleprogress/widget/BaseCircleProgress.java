@@ -6,6 +6,7 @@ import android.os.Message;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.example.circleprogress.callback.AddListener;
 import com.example.circleprogress.unit.DensityUtil;
 
 import java.lang.ref.WeakReference;
@@ -31,6 +32,8 @@ public abstract class BaseCircleProgress extends View {
     protected final static String TEMP_UNIT = "℃";
     protected final static String PERCENT_UNIT = "%";
     protected final static float DEFAULT_STROKE_WIDTH = 10;
+
+    protected AddListener mAddListener = null;
 
     public BaseCircleProgress(Context context) {
         this(context, null);
@@ -119,6 +122,10 @@ public abstract class BaseCircleProgress extends View {
                 return;
             }
         }
+    }
+
+    protected void setOnAddListener(AddListener ic) {
+        this.mAddListener = ic;
     }
 
     /**

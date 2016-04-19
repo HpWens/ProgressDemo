@@ -1,6 +1,7 @@
 package com.example.jms.circleprogressdemo;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -10,6 +11,8 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.circleprogress.app.ArcCircleProgress;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,10 +21,25 @@ public class MainActivity extends AppCompatActivity {
     private ListView lv;
     private List<String> mList = new ArrayList<>();
 
+    private ArcCircleProgress cpb;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        cpb = (ArcCircleProgress) findViewById(R.id.bcp);
+
+        cpb.setMaxProgress(200);
+        cpb.setTextUnit(ArcCircleProgress.Unit.TEMP);
+
+        cpb.setStartAngle(60);
+
+        cpb.setMoveAngele(60);
+
+        cpb.setProgressStrokeCap(Paint.Cap.ROUND);
+
+        cpb.setProgressStyle(Paint.Style.FILL, 0);
 
         lv = (ListView) findViewById(R.id.lv);
 

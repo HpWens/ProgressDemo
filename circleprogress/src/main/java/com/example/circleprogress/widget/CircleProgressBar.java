@@ -93,6 +93,10 @@ public class CircleProgressBar extends BaseCircleProgress {
                     postInvalidate();
                 }
             }, delayTime);
+        } else {
+            if (mAddListener != null) {
+                mAddListener.OnProgressEndListener();
+            }
         }
     }
 
