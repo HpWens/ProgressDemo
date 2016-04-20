@@ -27,7 +27,8 @@ public class BaseCircleProgress extends View {
 
     protected String textUnit; //默认的是比分比符号
     protected int maxProgress;
-    protected int minProgress;
+    //当前的进度
+    protected int currentProgress;
     protected int backgroundColor;
     protected int progressColor;
     protected int textColor;
@@ -40,8 +41,6 @@ public class BaseCircleProgress extends View {
     protected float moveAngle;
     //每次移动的圆心角度
     protected float everyMoveAngle;
-    //当前的进度
-    protected int currentProgress;
 
     protected Paint backgroundPaint;  //背圆画笔
     protected Paint progressPaint;  //进度条画笔
@@ -82,7 +81,7 @@ public class BaseCircleProgress extends View {
         this.handler = new CircleHandler(this);
         this.circleSize = CIRCLE_SIZE;
         this.textUnit = TEMP_UNIT;
-        this.minProgress = circleProgressAttrs.getMinProgress();
+        this.currentProgress = circleProgressAttrs.getCurrentProgress();
         this.maxProgress = circleProgressAttrs.getMaxProgress();
         this.backgroundColor = circleProgressAttrs.getBackgroundColor();
         this.progressColor = circleProgressAttrs.getProgressColor();
@@ -91,12 +90,10 @@ public class BaseCircleProgress extends View {
         this.isMove = circleProgressAttrs.isMove();
         this.isAcc = circleProgressAttrs.isAcc();
         this.startAngle = circleProgressAttrs.getStartAngle();
-        this.moveAngle = circleProgressAttrs.getMoveAngele();
-        this.everyMoveAngle = ROUND_ANGLE / maxProgress / 2;
         this.initPaint();
     }
 
-    public void initPaint() {
+    private void initPaint() {
         backgroundPaint = new Paint();
         backgroundPaint.setAntiAlias(true);   //抗锯齿
         backgroundPaint.setDither(true);    //防止抖动
@@ -104,6 +101,7 @@ public class BaseCircleProgress extends View {
         backgroundPaint.setStyle(Paint.Style.FILL);
         backgroundPaint.setStrokeJoin(Paint.Join.ROUND);//在画笔的连接处是圆滑的
         backgroundPaint.setStrokeCap(Paint.Cap.ROUND);//在画笔的起始处是圆滑的  笔触
+        backgroundPaint.setStrokeWidth(DensityUtil.dip2px(ctx, 15));
         //backgroundPaint.setPathEffect(new CornerPathEffect(10));//画笔效果   转角处的圆滑程度
 
         progressPaint = new Paint();
@@ -113,6 +111,7 @@ public class BaseCircleProgress extends View {
         progressPaint.setStyle(Paint.Style.STROKE);
         progressPaint.setStrokeJoin(Paint.Join.ROUND);//在画笔的连接处是圆滑的
         progressPaint.setStrokeCap(Paint.Cap.ROUND);//在画笔的起始处是圆滑的  笔触
+        progressPaint.setStrokeWidth(DensityUtil.dip2px(ctx, 15));
         //progressPaint.setPathEffect(new CornerPathEffect(10));//画笔效果   转角处的圆滑程度
 
         textPaint = new Paint();
@@ -120,6 +119,7 @@ public class BaseCircleProgress extends View {
         textPaint.setDither(true);    //防止抖动
         textPaint.setColor(textColor);
         textPaint.setStyle(Paint.Style.FILL);
+        textPaint.setTextSize(DensityUtil.dip2px(ctx, 30));
     }
 
     @Override
@@ -128,9 +128,6 @@ public class BaseCircleProgress extends View {
         circleCenterX = w / 2;
         circleCenterY = h / 2;
         circleRadius = (int) (Math.min(circleCenterX, circleCenterY) * circleSize);
-        progressPaint.setStrokeWidth(DensityUtil.dip2px(ctx, circleRadius / 12));
-        backgroundPaint.setStrokeWidth(DensityUtil.dip2px(ctx, circleRadius / 12));
-        textPaint.setTextSize(DensityUtil.dip2px(ctx, circleRadius / 6));
     }
 
     @Override
@@ -174,10 +171,10 @@ public class BaseCircleProgress extends View {
      * @param width
      */
     public void setBackgroundStyle(Paint.Style style, float width) {
+        backgroundPaint.setStyle(style);
         if (style == Paint.Style.STROKE) {
             backgroundPaint.setStrokeWidth(DensityUtil.dip2px(ctx, width));
         }
-        backgroundPaint.setStyle(style);
     }
 
     /**
@@ -224,10 +221,10 @@ public class BaseCircleProgress extends View {
      * @param width
      */
     public void setProgressStyle(Paint.Style style, float width) {
+        progressPaint.setStyle(style);
         if (style == Paint.Style.STROKE) {
             progressPaint.setStrokeWidth(DensityUtil.dip2px(ctx, width));
         }
-        progressPaint.setStyle(style);
     }
 
     /**
@@ -258,12 +255,12 @@ public class BaseCircleProgress extends View {
     }
 
     /**
-     * 设置最小进度
+     * 设置当前进度
      *
-     * @param minProgress
+     * @param currentProgress
      */
-    public void setMinProgress(int minProgress) {
-        this.minProgress = minProgress;
+    public void setCurrentProgress(int currentProgress) {
+        this.currentProgress = currentProgress;
     }
 
     /**
@@ -275,14 +272,6 @@ public class BaseCircleProgress extends View {
         this.startAngle = angle;
     }
 
-    /**
-     * 设置移动的角度
-     *
-     * @param angle
-     */
-    public void setMoveAngele(float angle) {
-        this.moveAngle = angle;
-    }
 
     /**
      * 是否是静止界面  还是动态界面

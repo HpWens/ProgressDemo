@@ -21,9 +21,12 @@ public class BarCircleProgress extends BaseCircleProgress {
 
     public BarCircleProgress(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        progressPaint.setStrokeCap(Paint.Cap.BUTT);
+        init();
     }
 
+    private void init() {
+        progressPaint.setStrokeCap(Paint.Cap.BUTT);
+    }
 
     @Override
     protected void onDraw(Canvas canvas) {

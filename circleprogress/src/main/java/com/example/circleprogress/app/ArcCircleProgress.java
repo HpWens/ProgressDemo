@@ -16,6 +16,7 @@ public class ArcCircleProgress extends BaseCircleProgress {
     private float maxAngle;
     private String arcText;
     private float progressAndUnitSpacing;
+    private float arcStartAngle;
 
     private int arcUnitColor;
     private int arcTextColor;
@@ -31,7 +32,10 @@ public class ArcCircleProgress extends BaseCircleProgress {
 
     public ArcCircleProgress(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        startAngle = 130f;
+        init();
+    }
+
+    private void init() {
         backgroundPaint.setStyle(Paint.Style.STROKE);
         arcText = "temp";
         arcUnitColor = arcTextColor = arcProgressColor = textPaint.getColor();
@@ -71,6 +75,13 @@ public class ArcCircleProgress extends BaseCircleProgress {
             }
     }
 
+    /**
+     * 需要注意的是方法里面数字比较多
+     * <p/>
+     * 主要是测试合适字体的大小
+     *
+     * @param canvas
+     */
     private void drawText(Canvas canvas) {
         Paint.FontMetrics fontMetrics = textPaint.getFontMetrics();
         float fontHeight = fontMetrics.descent - fontMetrics.ascent; //文字的高度
@@ -84,12 +95,12 @@ public class ArcCircleProgress extends BaseCircleProgress {
         textPaint.setTextSize(DensityUtil.dip2px(ctx, circleRadius / 4));
         canvas.drawText(currentProgress + "", circleCenterX, circleCenterY + (fontHeight / 2), textPaint);
 
-        if (currentProgress < 10) {
-            progressAndUnitSpacing = circleRadius / 4;
-        } else if (currentProgress >= 10 && currentProgress < 100) {
-            progressAndUnitSpacing = circleRadius / 2;
+        if (currentProgress < 10) {  //小于10
+            progressAndUnitSpacing = circleRadius / 4;  //半径的1/4
+        } else if (currentProgress >= 10 && currentProgress < 100) { //大于10并且小于100
+            progressAndUnitSpacing = circleRadius / 2; //半径的1/2
         } else {
-            progressAndUnitSpacing = circleRadius / 3 * 2;
+            progressAndUnitSpacing = circleRadius / 3 * 2;//半径的2/3
         }
         textPaint.setColor(arcUnitColor);
         textPaint.setTextSize(DensityUtil.dip2px(ctx, circleRadius / 12));
@@ -99,14 +110,15 @@ public class ArcCircleProgress extends BaseCircleProgress {
     private void drawArc(Canvas canvas) {
         RectF mRectF = new RectF(circleCenterX - circleRadius, circleCenterY - circleRadius, circleCenterX + circleRadius, circleCenterY + circleRadius);
         if (currentProgress != 0) {
-            canvas.drawArc(mRectF, startAngle, (maxAngle / maxProgress) * currentProgress, false, progressPaint);
+            canvas.drawArc(mRectF, arcStartAngle, (maxAngle / maxProgress) * currentProgress, false, progressPaint);
         }
     }
 
     private void drawBackground(Canvas canvas) {
-        maxAngle = ROUND_ANGLE - Math.abs(startAngle - 90) * 2;
+        arcStartAngle = startAngle + 130f;  //130测试最佳距离
+        maxAngle = ROUND_ANGLE - Math.abs(arcStartAngle - ROUND_ANGLE / 4) * 2;
         RectF mRectF = new RectF(circleCenterX - circleRadius, circleCenterY - circleRadius, circleCenterX + circleRadius, circleCenterY + circleRadius);
-        canvas.drawArc(mRectF, startAngle, maxAngle, false, backgroundPaint);
+        canvas.drawArc(mRectF, arcStartAngle, maxAngle, false, backgroundPaint);
     }
 
     /**

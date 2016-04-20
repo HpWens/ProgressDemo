@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -13,26 +14,57 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <com.example.circleprogress.widget.CircleProgressArc
-                android:id="@+id/cpa0"
-                android:layout_width="200dp"
-                android:layout_height="200dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-            <com.example.circleprogress.widget.CircleProgressArc
-                android:id="@+id/cpa1"
-                android:layout_width="200dp"
-                android:layout_height="200dp" />
+                <com.example.circleprogress.app.ArcCircleProgress
+                    android:id="@+id/cpa0"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp" />
 
-            <com.example.circleprogress.widget.CircleProgressArc
-                android:id="@+id/cpa2"
-                android:layout_width="200dp"
-                android:layout_height="200dp" />
+                <com.example.circleprogress.app.ArcCircleProgress
+                    android:id="@+id/cpa1"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp" />
 
-            <com.example.circleprogress.widget.CircleProgressArc
-                android:id="@+id/cpa3"
-                android:layout_width="200dp"
-                android:layout_height="200dp" />
+            </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.example.circleprogress.app.ArcCircleProgress
+                    android:id="@+id/cpa2"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp" />
+
+                <com.example.circleprogress.app.ArcCircleProgress
+                    android:id="@+id/cpa3"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.example.circleprogress.app.ArcCircleProgress
+                    android:id="@+id/cpa4"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp" />
+
+                <com.example.circleprogress.app.ArcCircleProgress
+                    android:id="@+id/cpa5"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp" />
+
+
+            </LinearLayout>
 
         </LinearLayout>
 
